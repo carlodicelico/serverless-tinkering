@@ -8,7 +8,8 @@ const elasticTranscoder = new AWS.ElasticTranscoder({
 exports.handler = (event, context, callback) => {
     const key = event.Records[0].s3.object.key;
     const sourceKey = decodeURIComponent(key.replace(/\+/g, " "));
-    const outputKey = sourceKey.split('.')[0].replace(/\s/g, "-");
+    const keyParts = sourceKey.split('.');
+    const outputKey = keyParts.slice(0, keyParts.length - 1).join(' ').replace(/\s/g, "-");
 
     console.log(`key: ${key}, sourceKey: ${sourceKey}, outputKey: ${outputKey}`);
 
