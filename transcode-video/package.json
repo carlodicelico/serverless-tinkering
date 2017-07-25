@@ -13,6 +13,11 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:849960004441:function:transcode-video --zip-file fileb://Lambda-Deployment.zip",
+    "predeploy": "zip -r Lambda-Deployment.zip * -x *.zip *.json *.log",
+    "test": "run-local-lambda --file index.js --event tests/event.json"
+  },
+  "devDependencies": {
+    "run-local-lambda": "^1.1.1"
   }
 }
